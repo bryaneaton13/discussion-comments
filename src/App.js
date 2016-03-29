@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import Discussion from './components/Discussion';
+import data from './data/discussion.json';
 
 export default class App extends Component {
   render() {
     return (
-      <h1>Hello, world.</h1>
+      <Discussion data={data.discussion} />
     );
   }
 }
