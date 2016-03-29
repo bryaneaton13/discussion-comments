@@ -1,6 +1,5 @@
 import React, { Component, Children } from 'react';
-import Author from './Author';
-import DateTime from './DateTime';
+import AuthorDate from './AuthorDate';
 
 export default class Comment extends Component {
   render() {
@@ -11,10 +10,11 @@ export default class Comment extends Component {
       </div>
     ) : null;
     return (
-      <div className="comment">
-        <Author author={author} id={author_id} />
-        <DateTime value={datetime} />
-        {comment}
+      <div className="comment-group">
+        <div className="comment">
+          <AuthorDate author={author} id={author_id} date={datetime} />
+          {comment}
+        </div>
         {childrenDiv}
       </div>
     );

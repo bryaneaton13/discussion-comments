@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Author from './Author';
+import AuthorDate from './AuthorDate';
 import Comment from './Comment';
-import DateTime from './DateTime';
 
 export default class Discussion extends Component {
   renderComments(comments, key) {
@@ -32,8 +31,7 @@ export default class Discussion extends Component {
         <h1>{title}</h1>
         <div>
           <h4>{discussion}</h4>
-          <Author author={author} id={author_id} />
-          <DateTime value={datetime} />
+          <AuthorDate author={author} id={author_id} date={datetime} />
         </div>
         <div>
           {this.renderComments(comments)}

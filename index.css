@@ -7,7 +7,11 @@
   padding: 0px 15px;
   margin-left: 10px;
 }
+.author-date {
+  margin-bottom: 8px;
+}
 .author {
+  margin-right: 10px;
 }
 .author-link {
   font-weight: bold;
