@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 
 export default class Author extends Component {
   render() {
-    let { author, id } = this.props;
+    // let { author, id, isYou } = this.props;
+    let { author, isYou } = this.props;
+
+      // <a className="author-link" href={`#${id}`}>
+      //   {author}
+      //   {isYou ? ' (You)' : ''}
+      // </a>
     return (
       <span className="author">
-        <a className="author-link" href={`#${id}`}>
-          {/*author.substr(0, 1).toUpperCase()*/}
-          {author}
-        </a>
+        {author}
+        {isYou ? ' (You)' : ''}
       </span>
     );
   }

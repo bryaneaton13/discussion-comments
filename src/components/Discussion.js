@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import Card from 'material-ui/lib/card/card';
 import CardHeader from 'material-ui/lib/card/card-header';
+import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
 import Comment from './Comment';
-import moment from 'moment';
+import DateTime from './DateTime';
 
 export default class Discussion extends Component {
-  renderComments(comments, key) {
+  renderComments(comments, key = 'comment') {
     return comments.map((c, i) => {
-      if (c.deleted) return null;
+      let commentProps = {
+        ...c,
+        key: `${key}_${i}`,
+        user: this.props.user,
+        onDelete: this.props.onDeleteComment
+      };
       if (c.comments && c.comments.length) {
         return (
-          <Comment {...c} key={`${key}_${i}`}>
+          <Comment {...commentProps}>
             {this.renderComments(c.comments, i)}
           </Comment>
         );
       }
-      return <Comment {...c} key={`${key}_${i}`} />;
+      return <Comment {...commentProps} />;
     });
   }
   render() {
@@ -28,16 +34,16 @@ export default class Discussion extends Component {
       datetime,
       comments
     } = this.props.data;
-    let fromNow = moment(datetime).fromNow();
 
     return (
       <div className="discussion">
         <Card style={{
           margin: 10
         }}>
+          <CardTitle title={title} />
           <CardHeader
-            title={title}
-            subtitle={`${author} posted this discussion ${fromNow}`}
+            title={author}
+            subtitle={<DateTime date={datetime}/>}
             avatar={`http://lorempixel.com/100/100/cats/${author_id}`}
           />
           <CardText>

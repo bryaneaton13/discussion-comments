@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/lib/app-bar';
 import Discussion from './components/Discussion';
-import data from './data/discussion.json';
+import Undo from './components/Undo';
+import { connect } from 'react-redux';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      loggedInUser: 2
     };
   }
 
@@ -15,8 +16,13 @@ export default class App extends Component {
     return (
       <div>
         <AppBar showMenuIconButton={false} title="Discussion" />
-        <Discussion data={data.discussion} />
+        <Discussion
+          data={this.props.data}
+          user={this.state.loggedInUser} />
+        <Undo />
       </div>
     );
   }
 }
+
+export default connect((state) => ({data: state}))(App);

@@ -2,8 +2,20 @@ body {
   margin: 0;
 }
 
+.italic {
+  font-style: italic;
+}
+
+.color-light-grey {
+  color: #B0BEC5;
+}
+
 .discussion {
   margin: 10px;
+}
+
+.author-link:link {
+  text-decoration: none;
 }
 
 

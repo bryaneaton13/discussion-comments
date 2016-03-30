@@ -12,11 +12,20 @@ export default StyleSheet.create({
         "marginBottom": 0,
         "marginLeft": 0
     },
+    "italic": {
+        "fontStyle": "italic"
+    },
+    "color-light-grey": {
+        "color": "#B0BEC5"
+    },
     "discussion": {
         "marginTop": 10,
         "marginRight": 10,
         "marginBottom": 10,
         "marginLeft": 10
+    },
+    "author-link:link": {
+        "textDecoration": "none"
     },
     "child-comment": {
         "paddingTop": 0,
