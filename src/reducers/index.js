@@ -20,6 +20,7 @@ function editComment(id, comment, comments = []) {
   for (let i=0; i<len; i++) {
     if (comments[i].id === id) {
       comments[i].comment = comment;
+      comments[i].deleted = false;
       return;
     }
   }
@@ -29,23 +30,23 @@ function editComment(id, comment, comments = []) {
 export default function discussion(state, action) {
   switch (action.type) {
     case 'EDIT_COMMENT':
-      let newState2 = cloneDeep(state);
-      editComment(action.id, newState2.comments);
-      return newState2;
+      let newEditState = cloneDeep(state);
+      editComment(action.id, action.comment, newEditState.comments);
+      return newEditState;
     case 'DELETE_COMMENT':
-      let newState = cloneDeep(state);
-      let deletedComment = deleteComment(action.id, newState.comments);
+      let newDeleteState = cloneDeep(state);
+      let deletedComment = deleteComment(action.id, newDeleteState.comments);
       // Action to fire off when undo
-      newState.undo = {
+      newDeleteState.undo = {
         type: 'EDIT_COMMENT',
         id: action.id,
         comment: deletedComment
       };
-      newState.snackbar = {
+      newDeleteState.snackbar = {
         open: true,
         message: 'Deleted'
       };
-      return newState;
+      return newDeleteState;
     case 'CLOSE_SNACKBAR':
       return {
         ...state,

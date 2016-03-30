@@ -29,12 +29,15 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "draft-js": "^0.3.0",
+    "draft-js-import-html": "^0.1.5",
     "lodash.clonedeep": "^4.3.2",
     "material-ui": "^0.15.0-alpha.2",
     "moment": "^2.12.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.1",
+    "react-tap-event-plugin": "^0.2.2",
     "redux": "^3.3.1"
   }
 }

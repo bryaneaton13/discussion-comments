@@ -4,15 +4,14 @@ import Snackbar from 'material-ui/lib/snackbar';
 
 class Undo extends Component {
   render() {
-    // let { open, message, onUndo, onCloseSnackbar } = this.props;
-    let { open, message, onCloseSnackbar } = this.props;
-    // action="undo"
-    // onActionTouchTap={onUndo}
+    let { open, message, undo, onUndo, onCloseSnackbar } = this.props;
     return (
       <Snackbar
         open={open}
+        action="undo"
+        onActionTouchTap={() => onUndo(undo)}
         message={message}
-        autoHideDuration={4000}
+        autoHideDuration={5000}
         onRequestClose={onCloseSnackbar}
       />
     );
@@ -30,8 +29,9 @@ export default connect((state) => {
     onCloseSnackbar: () => dispatch({
       type: 'CLOSE_SNACKBAR'
     }),
-    onUndo: () => {
-      dispatch(ownProps.undo);
+    onUndo: (undo) => {
+      console.log('undo', undo);
+      dispatch(undo);
       dispatch({type: 'CLOSE_SNACKBAR'});
     }
   };

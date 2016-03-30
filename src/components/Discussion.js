@@ -3,7 +3,7 @@ import Card from 'material-ui/lib/card/card';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardTitle from 'material-ui/lib/card/card-title';
 import CardText from 'material-ui/lib/card/card-text';
-import Comment from './Comment';
+import CommentCard from './CommentCard';
 import DateTime from './DateTime';
 
 export default class Discussion extends Component {
@@ -17,12 +17,12 @@ export default class Discussion extends Component {
       };
       if (c.comments && c.comments.length) {
         return (
-          <Comment {...commentProps}>
+          <CommentCard {...commentProps}>
             {this.renderComments(c.comments, i)}
-          </Comment>
+          </CommentCard>
         );
       }
-      return <Comment {...commentProps} />;
+      return <CommentCard {...commentProps} />;
     });
   }
   render() {
@@ -44,7 +44,6 @@ export default class Discussion extends Component {
           <CardHeader
             title={author}
             subtitle={<DateTime date={datetime}/>}
-            avatar={`http://lorempixel.com/100/100/cats/${author_id}`}
           />
           <CardText>
             {discussion}
