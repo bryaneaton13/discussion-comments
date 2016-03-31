@@ -10,18 +10,37 @@ body {
   font-weight: bold;
 }
 
+.light {
+  font-size: 13px;
+}
+
+.text-right {
+  text-align: right;
+}
+
 .color-light-grey {
   color: #B0BEC5;
 }
 
 .discussion {
-  margin: 10px;
+  margin: 15px 20px;
 }
 
-.author-link:link {
-  text-decoration: none;
+.comment-header {
+  margin: 20px 0 10px 0;
+  font-size: 17px;
+  color: #78909C;
+}
+.comment-header > *{
+  margin-right: 15px;
 }
 
+.comment-group {
+  margin-bottom: 15px;
+}
+.comment-group > * {
+  margin-bottom: 10px;
+}
 
 .child-comment {
   padding-left: 10px ;
@@ -31,6 +50,13 @@ body {
   .child-comment {
     margin-left: 5px;
   }
+}
+
+.edit-buttons {
+  margin: 10px 10px 0 0;
+}
+.edit-buttons > * {
+  margin-left: 10px;
 }
 
 
@@ -46,7 +72,7 @@ body {
 .RichEditor-editor {
   border-top: 1px solid #ddd;
   cursor: text;
-  font-size: 16px;
+  font-size: 14px;
   margin-top: 10px;
 }
 
@@ -62,22 +88,6 @@ body {
 
 .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
   display: none;
-}
-
-.RichEditor-editor .RichEditor-blockquote {
-  border-left: 5px solid #eee;
-  color: #666;
-  font-family: 'Hoefler Text', 'Georgia', serif;
-  font-style: italic;
-  margin: 16px 0;
-  padding: 10px 20px;
-}
-
-.RichEditor-editor .public-DraftStyleDefault-pre {
-  background-color: rgba(0, 0, 0, 0.05);
-  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: 16px;
-  padding: 20px;
 }
 
 .RichEditor-controls {

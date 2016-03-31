@@ -5,14 +5,10 @@ export default class Author extends Component {
     // let { author, id, isYou } = this.props;
     let { author, isYou } = this.props;
 
-      // <a className="author-link" href={`#${id}`}>
-      //   {author}
-      //   {isYou ? ' (You)' : ''}
-      // </a>
     return (
       <span className="author">
         {author}
-        {isYou ? ' (You)' : ''}
+        {isYou ? <span className="light color-light-grey"> (You)</span> : ''}
       </span>
     );
   }

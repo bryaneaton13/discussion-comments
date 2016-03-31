@@ -1,7 +1,8 @@
-import React, { Component, Children } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import RaisedButton from 'material-ui/lib/raised-button';
 import FlatButton from 'material-ui/lib/flat-button';
-import { ContentState, convertFromRaw, convertToRaw, Editor, EditorState, RichUtils } from 'draft-js';
+import { Editor, RichUtils } from 'draft-js';
 import { htmlStringToEditorState, editorStateToHtmlString } from '../utils.js';
 
 class EditComment extends Component {
@@ -16,14 +17,14 @@ class EditComment extends Component {
     this.onChange = (editorState) => this.setState({editorState});
 
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
-    this.handleSubmit = (command) => this._handleSubmit();
+    this.handleSubmit = () => this._handleSubmit();
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
   }
 
   _handleSubmit() {
-    console.log('submitting');
     let text = editorStateToHtmlString(this.state.editorState);
-    console.log('text', text);
+    this.props.onEdit(this.props.id, text);
+    this.props.onCancel();
   }
 
   _handleKeyCommand(command) {
@@ -76,11 +77,18 @@ class EditComment extends Component {
             />
           </div>
         </div>
-        <FlatButton
-          label="Save"
-          primary={true}
-          onClick={this.handleSubmit}
-          />
+        <div className="text-right edit-buttons">
+          <FlatButton
+            label="Cancel"
+            secondary={true}
+            onClick={this.props.onCancel}
+            />
+          <RaisedButton
+            label="Save"
+            primary={true}
+            onClick={this.handleSubmit}
+            />
+        </div>
       </div>
     );
   }
@@ -100,22 +108,22 @@ export default connect(() => ({}), (dispatch) => {
 
 
 var INLINE_STYLES = [
-  {label: 'Bold', style: 'BOLD'},
-  {label: 'Italic', style: 'ITALIC'},
-  {label: 'Underline', style: 'UNDERLINE'},
+  {label: 'Bold', style: 'BOLD'}
+  // {label: 'Italic', style: 'ITALIC'}
 ];
 
-const InlineStyleControls = (props) => {
-  var currentStyle = props.editorState.getCurrentInlineStyle();
+// Stateless component
+function InlineStyleControls(props) {
+  let currentStyle = props.editorState.getCurrentInlineStyle();
   return (
     <div className="RichEditor-controls">
-      {INLINE_STYLES.map((type) => {
+      {INLINE_STYLES.map((type, i) => {
         let className = 'RichEditor-styleButton';
         if (currentStyle.has(type.style)) {
           className += ' RichEditor-activeButton';
         }
         return (
-          <span className={className} onMouseDown={() => {
+          <span key={`style_${i}`} className={className} onMouseDown={() => {
             props.onToggle(type.style);
           }}>
             {type.label}
@@ -124,4 +132,4 @@ const InlineStyleControls = (props) => {
       })}
     </div>
   );
-};
+}

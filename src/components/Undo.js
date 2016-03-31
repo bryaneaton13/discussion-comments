@@ -24,13 +24,10 @@ export default connect((state) => {
     message: state.snackbar.message || '',
     undo: state.undo
   };
-}, (dispatch, ownProps) => {
+}, (dispatch) => {
   return {
-    onCloseSnackbar: () => dispatch({
-      type: 'CLOSE_SNACKBAR'
-    }),
+    onCloseSnackbar: () => dispatch({type: 'CLOSE_SNACKBAR'}),
     onUndo: (undo) => {
-      console.log('undo', undo);
       dispatch(undo);
       dispatch({type: 'CLOSE_SNACKBAR'});
     }

@@ -1,14 +1,15 @@
 import React, { Component, Children } from 'react';
+import { connect } from 'react-redux';
 import Card from 'material-ui/lib/card/card';
 import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
+import Avatar from 'material-ui/lib/avatar';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 import Author from './Author';
 import Comment from './Comment';
 import DateTime from './DateTime';
 import EditComment from './EditComment';
-import { connect } from 'react-redux';
 
 class CommentCard extends Component {
   constructor(props) {
@@ -53,9 +54,14 @@ class CommentCard extends Component {
   }
 
   renderComment() {
-    let { comment, deleted } = this.props;
+    let { comment, deleted, id } = this.props;
     if (this.state.editing) {
-      return <EditComment comment={comment} />;
+      return (
+        <EditComment
+          id={id}
+          comment={comment}
+          onCancel={() => this.setState({editing: false})} />
+      );
     }
     if (deleted) {
       return (
@@ -79,13 +85,13 @@ class CommentCard extends Component {
           <CardHeader
             title={<Author author={author} id={author_id} isYou={author_id === user} />}
             subtitle={<DateTime date={datetime}/>}
+            avatar={<Avatar>{author[0]}</Avatar>}
           />
           <CardText>
             {this.renderComment()}
           </CardText>
           {this.renderActions()}
         </Card>
-        <br />
         {this.renderChildren()}
       </div>
     );

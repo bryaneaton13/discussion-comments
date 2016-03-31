@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash.cloneDeep';
+import moment from 'moment';
 
 function deleteComment(id, comments = []) {
   let len = comments.length;
@@ -10,21 +11,37 @@ function deleteComment(id, comments = []) {
       comments[i].deleted = true;
       return deletedComment;
     }
+    let val = deleteComment(id, comments[i].comments);
+    if (val) return val;
   }
   return deleteComment(id, comments.comments);
 }
 
 function editComment(id, comment, comments = []) {
   let len = comments.length;
-  if (len === 0) return;
+  if (len === 0) return false;
   for (let i=0; i<len; i++) {
     if (comments[i].id === id) {
       comments[i].comment = comment;
       comments[i].deleted = false;
-      return;
+      return true;
     }
+    let val = editComment(id, comment, comments[i].comments);
+    if (val) return;
   }
   return editComment(id, comment, comments.comments);
+}
+
+// Only does a single level sort
+function sortComments(comments = [], late = false) {
+  let newComments = comments;
+  newComments.sort((c1, c2) => {
+    let d1 = moment(c1.datetime);
+    let d2 = moment(c2.datetime);
+    let comparison = (late) ? d1 > d2 : d1 < d2;
+    return comparison ? -1 : 1;
+  });
+  return newComments;
 }
 
 export default function discussion(state, action) {
@@ -54,6 +71,16 @@ export default function discussion(state, action) {
           open: false
         }
       };
+    case 'SORT_EARLY':
+      let sortEarlyState = cloneDeep(state);
+      sortEarlyState.comments = sortComments(sortEarlyState.comments);
+      sortEarlyState.sort = 'early';
+      return sortEarlyState;
+    case 'SORT_LATE':
+      let sortLateState = cloneDeep(state);
+      sortLateState.comments = sortComments(sortLateState.comments, true);
+      sortLateState.sort = 'late';
+      return sortLateState;
     default:
       return state;
   }
