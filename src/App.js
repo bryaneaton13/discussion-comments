@@ -11,8 +11,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.allUsers = getAuthors(props.data);
+    let selectedId = 1;
+    if (this.allUsers.length > 0) {
+      let max = 0;
+      this.allUsers.forEach((user) => {
+        if (user.count > max) {
+          max = user.count;
+          selectedId = user.id;
+        }
+      });
+    }
+
     this.state = {
-      loggedInUser: this.allUsers[1] ? this.allUsers[1].id : 1
+      loggedInUser: selectedId
     };
   }
 
@@ -28,7 +39,10 @@ class App extends Component {
               value={this.state.loggedInUser}
               onChange={(evt, index, value) => this.setState({loggedInUser: value})}>
               {this.allUsers.map((u) => (
-                <MenuItem key={u.id} value={u.id} primaryText={u.author} />
+                <MenuItem
+                  key={u.id}
+                  value={u.id}
+                  primaryText={`${u.author} (${u.count})`} />
               ))}
             </DropDownMenu>
           }/>

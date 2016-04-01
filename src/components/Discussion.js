@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import FlipMove from 'react-flip-move';
 import Card from 'material-ui/lib/card/card';
 import CardHeader from 'material-ui/lib/card/card-header';
 import Avatar from 'material-ui/lib/avatar';
@@ -37,7 +38,7 @@ class Discussion extends Component {
     });
   }
   render() {
-    let { user, sort, onSortEarly, onSortLate, data } = this.props;
+    let { user, sort, onSortOld, onSortNew, data } = this.props;
     let {
       title,
       author,
@@ -66,15 +67,17 @@ class Discussion extends Component {
               Comments
             </span>
             <RaisedButton
-              label="Earliest"
-              onClick={onSortEarly}
-              secondary={sort === 'early'} />
+              label="Oldest"
+              onClick={onSortOld}
+              secondary={sort === 'old'} />
             <RaisedButton
-              label="Latest"
-              onClick={onSortLate}
-              secondary={sort === 'late'} />
+              label="Newest"
+              onClick={onSortNew}
+              secondary={sort === 'new'} />
           </div>
-          {this.renderComments(comments)}
+          <FlipMove>
+            {this.renderComments(comments)}
+          </FlipMove>
         </div>
       </div>
     );
@@ -83,7 +86,7 @@ class Discussion extends Component {
 
 export default connect((state) => ({sort: state.sort}), (dispatch) => {
   return {
-    onSortEarly: () => dispatch({type: 'SORT_EARLY'}),
-    onSortLate: () => dispatch({type: 'SORT_LATE'})
+    onSortOld: () => dispatch({type: 'SORT_OLD'}),
+    onSortNew: () => dispatch({type: 'SORT_NEW'})
   };
 })(Discussion);

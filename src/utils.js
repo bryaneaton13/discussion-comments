@@ -18,8 +18,10 @@ export function getAuthors(data, depth = 1) {
     users = users.sort((u1, u2) => u1.id < u2.id ? -1 : 1).reduce((p, n) => {
       // don't include and duplicates in the array
       if (p[p.length-1] && p[p.length-1].id === n.id) {
+        p[p.length-1].count++;
         return p;
       }
+      n.count = 1;
       return p.concat(n);
     }, []);
   }

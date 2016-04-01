@@ -71,16 +71,16 @@ export default function discussion(state, action) {
           open: false
         }
       };
-    case 'SORT_EARLY':
-      let sortEarlyState = cloneDeep(state);
-      sortEarlyState.comments = sortComments(sortEarlyState.comments);
-      sortEarlyState.sort = 'early';
-      return sortEarlyState;
-    case 'SORT_LATE':
-      let sortLateState = cloneDeep(state);
-      sortLateState.comments = sortComments(sortLateState.comments, true);
-      sortLateState.sort = 'late';
-      return sortLateState;
+    case 'SORT_OLD':
+      let sortOldState = cloneDeep(state);
+      sortOldState.comments = sortComments(sortOldState.comments);
+      sortOldState.sort = 'old';
+      return sortOldState;
+    case 'SORT_NEW':
+      let sortNewState = cloneDeep(state);
+      sortNewState.comments = sortComments(sortNewState.comments, true);
+      sortNewState.sort = 'new';
+      return sortNewState;
     default:
       return state;
   }

@@ -11,7 +11,7 @@ injectTapEventPlugin();
 let store = createStore(discussionApp, {
   ...data.discussion,
   snackbar: {},
-  sort: 'early'
+  sort: 'old'
 });
 import App from './App';
 
